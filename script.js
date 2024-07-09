@@ -43,3 +43,25 @@ function reset() {
 function lap() {
     if (running) {
         const lapTime = `${minutesDisplay.innerHTML}:${secondsDisplay.innerHTML}:${millisecondsDisplay.innerHTML}`;
+        const lapItem = document.createElement('li');
+        lapItem.textContent = `Lap ${lapNumber++}: ${lapTime}`;
+        lapsList.appendChild(lapItem);
+    }
+}
+
+function getShowTime() {
+    updatedTime = new Date().getTime();
+    difference = updatedTime - startTime;
+
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+    const milliseconds = Math.floor((difference % 1000) / 10);
+
+    minutesDisplay.innerHTML = minutes < 10 ? "0" + minutes : minutes;
+    secondsDisplay.innerHTML = seconds < 10 ? "0" + seconds : seconds;
+    millisecondsDisplay.innerHTML = milliseconds < 10 ? "0" + milliseconds : milliseconds;
+}
+
+startStopBtn.addEventListener('click', startStop);
+resetBtn.addEventListener('click', reset);
+lapBtn.addEventListener('click', lap);
